@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta http-equiv="Pragma" content="no-cache">
+		<title></title>
+		
+		<link href="./css/jquery-confirm.css" rel="stylesheet" media="screen">
+		<script src="./js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/jquery.cookie.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/jquery-confirm.js" type="text/javascript"></script>
+		<script src="./js/layer3.5.1.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="./js/common.js" type="text/javascript" charset="utf-8"></script> -->
+		<style type="text/css">
+			.con{
+				position: absolute;
+				top: 45%;
+				left: 0;
+				text-align: center;
+				width: 100%;
+				height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="con" style="display: none;">
+			<span>恭喜杨桃小姐成为吴汉威先生的女朋友~~ </span>
+			<br>
+			<span> o(*≧▽≦)ツ ~ ┴┴</span>
+			<!-- <span>٩̋(๑˃́ꇴ˂̀๑)</span> -->
+		</div>
+	</body>
+	
+		
+		<!-- <script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- <script src="js/jquery.cookie.min.js" type="text/javascript" charset="utf-8"></script> -->
+
+	<script>
+		
+	
+		$(document).ready(function(){ 
+			
+			var selState = $.cookie("selState");
+			if ( selState == "agree" ) {
+				$(".con").css("display","block");
+			} else {
+				fun();
+			}
+			console.log(selState);
+			//fun();
+		})
+		
+		function fun() {
+			var top = 0;
+			$.confirm({
+			    title: '单项选择题!',
+			    content: '做我女朋友可以吗?',
+				closeOnClickModal: false,
+				buttons: {
+				    ok: {
+				        text: '好!',
+				        action: function() {
+				        }
+				    },
+				    cancel: {
+				        text: '考虑一下',
+				    }
+				}
+			});
+			
+			setTimeout(function() {
+				$("button.btn.btn-default").off("click")
+				
+				$(".jconfirm-buttons button").eq(1).on("click", function(){
+					top += 100;
+					if ( top > 100 ) {
+						top = -100;
+					}
+					
+					$(".jconfirm-box-container").css("margin-top", top);
+				})
+				
+				$(".jconfirm-buttons button").eq(0).on("click", function(){
+					$.ajax({
+						type: "GET",
+						url: "http://wxpusher.zjiecode.com/api/send/message",
+						data:{ 
+							appToken: "AT_UfgTUNKuqWwFvF3YdRdXfUd7G5LAYngi",
+							content: "收到杨桃小姐的同意",
+							uid: "UID_H6M8nBUuz66NNJOZkndpP8qyKtsR"
+						},
+						success: function (data) {
+							
+						}
+					});
+					$(".jconfirm").remove();
+					$(".con").css("display","block");
+					$.cookie("selState", "agree", { expires: 99 });//第一种
+				})
+				
+			}, 10);
+			
+			
+			
+			
+			 // $.confirm({
+			 //        title: '单项选择题',
+			 //        content: '可以做我女朋友吗?',
+			 //        //type: 'green',
+			 //        icon: 'glyphicon glyphicon-question-sign',
+			 //        buttons: {
+			 //            ok: {
+			 //                text: '好!',
+			 //                btnClass: 'btn-primary',
+			 //                action: function() {
+			 //                    alert("ok")
+			 //                }
+			 //            },
+			 //            cancel: {
+			 //                text: '考虑一下',
+			 //                btnClass: 'btn-primary'
+			 //            }
+			 //        }
+			 //    });
+			
+			// $.confirm({
+			//     title: '单项选择题?',
+			//     content: '做我女朋友好吗!',
+			// 	confirmButton: '确认',
+			// 	cancelButton: '考虑一下'
+			 //    confirm: {
+				// 	text: '确认',
+				// 	action: function(){
+				// 		$.alert('好!');
+				// 	}
+				// },
+						
+			 //    cancel: function(){
+			 //        $.alert('考虑一下')
+			 //    }
+			// });
+		}
+	</script>
+</html>
