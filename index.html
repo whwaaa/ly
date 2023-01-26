@@ -50,8 +50,8 @@
 	
 		$(document).ready(function(){ 
 			
-			var selState_ = $.cookie("selState_");
-			if ( selState_ == "agree" ) {
+			var selState__ = $.cookie("selState__");
+			if ( selState__ == "agree" ) {
 				$(".con").css("display","block");
 			} else {
 				fun();
@@ -105,7 +105,7 @@
 					});
 					$(".jconfirm").remove();
 					$(".con").css("display","block");
-					$.cookie("selState_", "agree", { expires: 99 });//第一种
+					$.cookie("selState__", "agree", { expires: 99 });//第一种
 				})
 				
 			}, 10);
